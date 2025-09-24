@@ -1,57 +1,48 @@
-# Orders Service
+# Order Service
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)]()
+[![Render](https://img.shields.io/badge/render-live-blue)](https://order-service-500m.onrender.com/orders)
 
-A simple microservice for managing orders in a sample e-commerce platform.  
-This service provides APIs to create, fetch, and manage orders. It is designed to demonstrate DevOps best practices, including containerization, CI/CD, and monitoring.
+A simple Node.js + Express microservice for managing orders.  
+This project is part of a DevOps demo showcasing CI/CD, deployment, and monitoring.
 
 ---
 
 ## Features
-- Create and manage customer orders
-- REST API endpoints
-- Lightweight and scalable design
-- Ready for Docker and Kubernetes deployments
+- REST API built with Express
+- Sample endpoints for orders
+- Easy to deploy on free hosting (Render, Railway, etc.)
+- Health check for testing deployments
 
 ---
 
-## Prerequisites
-- Node.js (>=16.x)
-- npm or yarn
-- Docker (optional, for containerization)
+## Getting Started
 
----
-
-## Installation
-
-Clone the repository and install dependencies:
-
+### 1. Clone the repository
 ```bash
 git clone https://github.com/sonali-devops259/order-service.git
 cd order-service
-npm install
-Running the Service
-Start the service locally:
 
-bash
-Copy code
+
+2. Install dependencies
+npm install
+
+3. Run locally
 npm start
-The service will run at:
+
+
+The service will be available at:
 👉 http://localhost:3000
 
-Running in Docker
-Build and run with Docker:
+API Endpoints
+Method	Endpoint	Description
+GET	/orders	Fetch all orders
+GET	/orders/:id	Fetch a single order
+GET	/api/health	Health check endpoint
+Deployment
 
-bash
-Copy code
-docker build -t order-service .
-docker run -p 3000:3000 order-service
-Testing
-Run unit tests:
+This service is deployed on Render for free hosting.
 
-bash
-Copy code
-npm test
-Contributing
-Contributions are welcome! Please open an issue or submit a pull request.
+Orders endpoint: https://order-service-500m.onrender.com/orders
 
+Health check: https://order-service-500m.onrender.com/api/health
