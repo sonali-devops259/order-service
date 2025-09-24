@@ -17,3 +17,12 @@ app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
 
+
+/* Health endpoint for monitoring */
+app.get('/api/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    env: process.env.NODE_ENV || 'development',
+    time: new Date().toISOString()
+  });
+});
