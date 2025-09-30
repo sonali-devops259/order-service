@@ -46,3 +46,30 @@ This service is deployed on Render for free hosting.
 Orders endpoint: https://order-service-500m.onrender.com/orders
 
 Health check: https://order-service-500m.onrender.com/api/health
+
+🐳 Docker
+
+Build the image:
+
+docker build -t order-service .
+
+
+Run the container (host port → container port):
+
+# if 3000 is busy, use 3001:3000 instead
+docker run --name order-svc -p 3000:3000 order-service
+
+
+Test:
+
+curl http://localhost:3000/orders
+
+
+Stop & remove:
+
+docker stop order-svc && docker rm order-svc
+
+Push to Docker Hub (optional)
+# login first: docker login
+docker tag order-service DOCKERHUB_USER/order-service:v1
+docker push DOCKERHUB_USER/order-service:v1
