@@ -73,3 +73,49 @@ Push to Docker Hub (optional)
 # login first: docker login
 docker tag order-service DOCKERHUB_USER/order-service:v1
 docker push DOCKERHUB_USER/order-service:v1
+---
+
+## Kubernetes (Minikube)
+
+### Prerequisites
+- Minikube running with the Docker driver
+- Ingress addon enabled: minikube addons enable ingress
+
+### Create namespace and apply manifests
+`ash
+kubectl create namespace orders
+kubectl apply -f k8s/order-service.yaml
+kubectl apply -f k8s/order-ingress.yaml
+Access the service
+
+Option A  Port-forward the ingress controller (quickest):
+
+kubectl port-forward -n ingress-nginx svc/ingress-nginx-controller 8080:80
+curl -H "Host: order.local" http://localhost:8080/api/health
+curl -H "Host: order.local" http://localhost:8080/orders
+
+
+Option B  Friendly host with hosts file:
+
+Get Minikube IP: minikube ip (e.g., 192.168.49.2)
+
+Edit C:\Windows\System32\drivers\etc\hosts as Administrator and add:
+192.168.49.2 order.local
+
+If using port-forward above, browse http://order.local:8080/...
+
+Notes
+
+Deployment exposes container port 3000; Service uses 3000; Ingress serves on 80.
+
+Scale:
+
+kubectl scale deploy/order-service -n orders --replicas=2
+
+
+Using a Docker Hub image? Edit k8s/order-service.yaml:
+
+image: <DOCKERHUB_USER>/order-service:v1
+imagePullPolicy: IfNotPresent
+
+
